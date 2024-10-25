@@ -86,3 +86,19 @@ async function getPokemonImage(name){
     const url = imatge.front_default; // imatge està a front_default
     return url;
 }
+async function searchPokemon(name){
+    const response = await fetch(`${URL}pokemon/${name}`);
+    const data = await response.json();
+    return data;
+}
+async function searchPokemonByName(){
+    const input = document.getElementById('pokemon-input');
+    const busqueda = document.getElementById('busqueda');
+    const pokemonName = input.value;
+    const pokemon = await searchPokemon(pokemonName);
+    if (pokemon){ //si existeix
+        busqueda.innerText = `ID: ${pokemon.id} Type: ${pokemon.types[0].type.name}`;
+    } else {
+        busqueda.innerText = 'Pokemon no trobat';
+    }
+}

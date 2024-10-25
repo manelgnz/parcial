@@ -1,5 +1,7 @@
 #pokemon-list{
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 10px;
     flex-wrap: wrap;
     justify-content: center;
     flex-direction: column;
