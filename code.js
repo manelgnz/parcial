@@ -8,15 +8,26 @@ window.onload = async function(){
         
         //onclick
         pokemonItem.onclick = async function() {
-            const position = getPositionPokemon(pokemon.name, pokemons);
-            let positionSpan = pokemonItem.querySelector('.position-span');
-            if (!positionSpan) {
-                positionSpan = document.createElement('span');
-                positionSpan.className = 'position-span';
-                positionSpan.style.display = 'block'; 
-                this.appendChild(positionSpan);
+            const ID = getPositionPokemon(pokemon.name, pokemons);
+            let IDSpan = pokemonItem.querySelector('.ID-span');
+            if (!IDSpan) {
+                IDSpan = document.createElement('span');
+                IDSpan.className = 'ID-span';
+                IDSpan.style.display = 'block'; 
+                this.appendChild(IDSpan);
             }
-            positionSpan.innerText = `ID: ${position}`;
+            const tipos = await getPokemonType(pokemon.name); 
+            let typeSpan = this.querySelector('.type-span'); // this = pokemonItem
+            if (!typeSpan) {  /// si no existeix el span, el creo
+                typeSpan = document.createElement('span');
+                typeSpan.className = 'type-span'; 
+                typeSpan.style.display = 'block'; // per a que es mostri en una nova línia
+                this.appendChild(typeSpan); 
+            }
+            IDSpan.innerText = `ID: ${ID}`;
+            typeSpan.innerText = `Type: ${tipos}`;
+
+            
         };
 
         list.appendChild(pokemonItem);
@@ -36,8 +47,22 @@ function getPositionPokemon(name, pokemons){
         }
     }
 }
+
 async function getPokemonDetails(name) {
     const response = await fetch(`${URL}pokemon/${name}`);
     const data = await response.json();
     return data;
+}
+async function getPokemonType(name) {
+    const details = await getPokemonDetails(name);
+    let types = '';
+    for (let i = 0; i < details.types.length; i++) {
+        types += details.types[i].type.name + " "; // afegim el tipus a la cadena amb un espai
+    }
+    return types;
+}
+
+async function getPokemonImage(name){
+    const details = await getPokemonDetails(name);
+    return details.sprites.front_default;
 }
