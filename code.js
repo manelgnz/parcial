@@ -6,6 +6,7 @@ window.onload = async function(){
         const pokemonItem = document.createElement('li');
         pokemonItem.innerText = pokemon.name; //probar .textContext
         list.appendChild(pokemonItem);
+        
     }
 }
 
@@ -15,8 +16,11 @@ async function getAllPokemons(){
     const pokemonList = data.results;
     return pokemonList;
 }
-async function getNamePokemon(name){
+async function getPositionPokemon(name){
     const pokemons = await getAllPokemons();
-    const pokemon = pokemons.find(pokemon => pokemon.name === name);
-    return pokemon.name;
+    for (let i = 0; i < pokemons.length; i++){
+        if (pokemons[i].name === name){
+            return i;
+        }
+    }
 }
