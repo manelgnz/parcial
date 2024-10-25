@@ -142,12 +142,20 @@ function afegirAlEquip(pokemon) {
     updateEquipList();
 }
 
-function updateEquipList() {
+async function updateEquipList() {
     const equipList = document.getElementById('equip-list');
     equipList.innerHTML = '';
     for (let pokemon of equip) {
         const pokemonItem = document.createElement('li');
+        const img = document.createElement('img');
+        img.className = 'pokemon-img';
+        const imatgeUrl = await getPokemonImage(pokemon.name);
+        img.src = imatgeUrl;
+        pokemonItem.appendChild(img);
+        const nameSpan = document.createElement('span');
         pokemonItem.innerText = pokemon.name;
+        pokemonItem.appendChild(nameSpan);        
+
         equipList.appendChild(pokemonItem);
     }
 }
