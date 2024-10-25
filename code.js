@@ -9,24 +9,42 @@ window.onload = async function(){
         //onclick
         pokemonItem.onclick = async function() {
             const ID = getPositionPokemon(pokemon.name, pokemons);
-            let IDSpan = pokemonItem.querySelector('.ID-span');
-            if (!IDSpan) {
+            let IDSpan = this.querySelector('.ID-span'); //this = pokemonItem i querySelector busca elID-span dins el pokemonItem
+            if (!IDSpan) {                               //si no té span el creo
                 IDSpan = document.createElement('span');
                 IDSpan.className = 'ID-span';
-                IDSpan.style.display = 'block'; 
+                IDSpan.style.display = 'block';          // nova linea
                 this.appendChild(IDSpan);
             }
             const tipos = await getPokemonType(pokemon.name); 
-            let typeSpan = this.querySelector('.type-span'); // this = pokemonItem
-            if (!typeSpan) {  /// si no existeix el span, el creo
+            let typeSpan = this.querySelector('.type-span'); 
+            if (!typeSpan) {  
                 typeSpan = document.createElement('span');
                 typeSpan.className = 'type-span'; 
-                typeSpan.style.display = 'block'; // per a que es mostri en una nova línia
+                typeSpan.style.display = 'block'; 
                 this.appendChild(typeSpan); 
+            }
+            const imatgeUrl = await getPokemonImage(pokemon.name);
+            let img = this.querySelector('.pokemon-img'); 
+            if (!img) {
+                img = document.createElement('img');
+                img.className = 'pokemon-img';
+                img.style.display = 'block';
+                this.appendChild(img);
+            }
+            //quan torno a clicar, s'oculta la informació
+            if (IDSpan.style.display === 'none') { //si està ocult, mostro info
+                IDSpan.style.display = 'block';
+                typeSpan.style.display = 'block'; 
+                img.style.display = 'block';
+            } else {                               //si està visible, oculto info
+                IDSpan.style.display = 'none';
+                typeSpan.style.display = 'none';
+                img.style.display = 'none'; 
             }
             IDSpan.innerText = `ID: ${ID}`;
             typeSpan.innerText = `Type: ${tipos}`;
-
+            img.src = imatgeUrl;
             
         };
 
@@ -63,6 +81,8 @@ async function getPokemonType(name) {
 }
 
 async function getPokemonImage(name){
-    const details = await getPokemonDetails(name);
-    return details.sprites.front_default;
+    const details = await getPokemonDetails(name); 
+    const imatge = details.sprites; //sprites és un objecte que conté la imatge
+    const url = imatge.front_default; // imatge està a front_default
+    return url;
 }
