@@ -123,7 +123,7 @@ async function searchPokemonByName(event){
                 tipos += ' ';
             }
         }
-        busqueda.innerText = `ID: ${pokemon.id} Type: ${tipos}`;
+        busqueda.innerText = `ID: ${pokemon.id} Tipo: ${tipos}`;
         const img = document.createElement('img');
         img.className = 'imagen-search';
         img.src = pokemon.sprites.other['official-artwork'].front_default;
@@ -147,14 +147,16 @@ async function updateEquipList() {
     equipList.innerHTML = '';
     for (let pokemon of equip) {
         const pokemonItem = document.createElement('li');
+
         const img = document.createElement('img');
         img.className = 'pokemon-img';
         const imatgeUrl = await getPokemonImage(pokemon.name);
         img.src = imatgeUrl;
         pokemonItem.appendChild(img);
+
         const nameSpan = document.createElement('span');
-        pokemonItem.innerText = pokemon.name;
-        pokemonItem.appendChild(nameSpan);        
+        nameSpan.innerText = pokemon.name;
+        pokemonItem.appendChild(nameSpan);
 
         equipList.appendChild(pokemonItem);
     }

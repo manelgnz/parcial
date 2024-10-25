@@ -15,7 +15,7 @@
     height: 100px;
 }
 button {
-    background-color: #4CAF50; /* Verde */
+    background-color: #4CAF50;
     border: none;
     color: white;
     padding: 10px 20px;
@@ -39,4 +39,48 @@ button:hover {
     height: 60px;
     margin-left: 10px;
     border-radius: 50%;
+}
+#equip-list li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
+    padding: 0;  
+}
+h2{
+    text-align: center; 
+}
+
+@media (max-width: 600px) {
+    #pokemon-list {
+        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    }
+
+    #equip-list li {
+        width: 100%;
+        flex-direction: row;
+    }
+
+    .imagen-search {
+        width: 80px;
+        height: 80px;
+    }
+
+    #equip-list img {
+        width: 50px;
+        height: 50px;
+    }
+}
+form {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+
+form input[type="text"] {
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #bf00ff;
+    margin-right: 10px;
 }
