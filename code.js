@@ -4,9 +4,8 @@ window.onload = async function(){
     const list = document.getElementById('pokemon-list');
     for (pokemon of pokemons){
         const pokemonItem = document.createElement('li');
-        pokemonItem.innerText = pokemon.name; //probar .textContext
+        pokemonItem.innerText = pokemon.name; 
         list.appendChild(pokemonItem);
-        
     }
 }
 
