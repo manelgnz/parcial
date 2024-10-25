@@ -1,4 +1,6 @@
 const URL = 'https://pokeapi.co/api/v2/';
+let equip = [];
+
 window.onload = async function(){
     const pokemons = await getAllPokemons();
     const list = document.getElementById('pokemon-list');
@@ -7,12 +9,14 @@ window.onload = async function(){
         pokemonItem.innerText = pokemon.name;
         
         //Boto afegir al equip
-        const addButton = document.createElement('button');
-        addButton.innerText = 'Afegir al equip';
-        addButton.onclick = function(){
+        const boto = document.createElement('button');
+        boto.innerText = 'Afegir al equip';
+        boto.onclick = function(event){
+            event.stopPropagation(); //evito el onclick del pokemonItem
             afegirAlEquip(pokemon);
         };
-        pokemonItem.appendChild(addButton);
+        pokemonItem.appendChild(boto);
+
         //onclick
         pokemonItem.onclick = async function() {
             const ID = getPositionPokemon(pokemon.name, pokemons);
@@ -130,17 +134,17 @@ async function searchPokemonByName(event){
     return busqueda.innerText;
 }
 function afegirAlEquip(pokemon) {
-    if (equipo.length > 5) {
+    if (equip.length > 5) {
         alert('Equip ple');
         return;
     } //sino, afegim el pokemon a l'equip
-    equipo.push(pokemon);
+    equip.push(pokemon);
     updateEquipList();
 }
 
 function updateEquipList() {
     const equipList = document.getElementById('equip-list');
-    equipList.innerHTML = ''; // Limpiar la lista anterior
+    equipList.innerHTML = '';
     for (let pokemon of equip) {
         const pokemonItem = document.createElement('li');
         pokemonItem.innerText = pokemon.name;
