@@ -87,11 +87,14 @@ async function getPokemonImage(name){
     return url;
 }
 async function searchPokemon(name){
-    try{
+    try{ //si no troba el pokemon, retorna null
     const response = await fetch(`${URL}pokemon/${name}`);
     if (!response.ok) throw new Error('Not found');
     const data = await response.json();
     return data;
+    }catch(error){
+        return null;
+    }
 
 }
 async function searchPokemonByName(){
@@ -103,6 +106,7 @@ async function searchPokemonByName(){
         busqueda.innerHTML = ''; // Limpiar resultados anteriores
         busqueda.innerText = `ID: ${pokemon.id} Type: ${pokemon.types.map(typeInfo => typeInfo.type.name).join(', ')}`;
         const img = document.createElement('img');
+        img.className = 'imagen-search';
         img.src = pokemon.sprites.other['official-artwork'].front_default;
         busqueda.appendChild(img);
     } else {

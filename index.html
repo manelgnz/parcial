@@ -7,8 +7,10 @@
     <link rel = "stylesheet" href="./style.css">
 </head>
 <body>
-    <input type="text" id="pokemon-input" placeholder="Nom del pokemon">
-    <button id="search-button" onclick= "searchPokemonByName()">Cercar</button>
+    <form onsubmit="searchPokemonByName(event)">
+    <input type="text" id="pokemon-input" name="pokemon-input" placeholder="Nom del pokemon">
+    <button type="submit">Cercar</button>
+    </form>
     <div id="busqueda"></div>
 
     <h2>POKÉDEX KANTO</h2>
