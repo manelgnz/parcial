@@ -87,9 +87,12 @@ async function getPokemonImage(name){
     return url;
 }
 async function searchPokemon(name){
+    try{
     const response = await fetch(`${URL}pokemon/${name}`);
+    if (!response.ok) throw new Error('Not found');
     const data = await response.json();
     return data;
+
 }
 async function searchPokemonByName(){
     const input = document.getElementById('pokemon-input');
@@ -97,8 +100,13 @@ async function searchPokemonByName(){
     const pokemonName = input.value;
     const pokemon = await searchPokemon(pokemonName);
     if (pokemon){ //si existeix
-        busqueda.innerText = `ID: ${pokemon.id} Type: ${pokemon.types[0].type.name}`;
+        busqueda.innerHTML = ''; // Limpiar resultados anteriores
+        busqueda.innerText = `ID: ${pokemon.id} Type: ${pokemon.types.map(typeInfo => typeInfo.type.name).join(', ')}`;
+        const img = document.createElement('img');
+        img.src = pokemon.sprites.other['official-artwork'].front_default;
+        busqueda.appendChild(img);
     } else {
-        busqueda.innerText = 'Pokemon no trobat';
+        alert('Pokemon no trobat');
     }
+    return busqueda.innerText;
 }
