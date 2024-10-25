@@ -35,5 +35,9 @@ function getPositionPokemon(name, pokemons){
             return i;
         }
     }
-    
+}
+async function getPokemonDetails(name) {
+    const response = await fetch(`${URL}pokemon/${name}`);
+    const data = await response.json();
+    return data;
 }
